@@ -1,5 +1,6 @@
-from PyQt5 import QtWidgets as QT
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import (QMainWindow, QAction, QWidget, QPushButton,
+    QHBoxLayout, QSizePolicy)
+
 from config import *
 from display import Display_Window
 
@@ -19,18 +20,40 @@ class UI(QMainWindow):
         self.setGeometry(self.xpos, self.ypos, self.width, self.height)
         self.add_menu()
 
+        self.central_widget = QWidget()
+        self.central_layout = QHBoxLayout()
+
+        self.add_player_button = QPushButton(self)
+        self.add_player_button.setText("Add Player")
+        self.add_player_button.clicked.connect(self.add_player)
+        self.add_player_button.setSizePolicy(
+            QSizePolicy.Preferred, QSizePolicy.Expanding
+        )
+        self.central_layout.addWidget(self.add_player_button)
+
+        self.central_widget.setLayout(self.central_layout)
+        self.setCentralWidget(self.central_widget)
+
+    def add_player(self):
+        player_num = len(self.players)
+        self.players[str(player_num)].append(Player_Widget(player_num))
+        self.refresh()
+
+    def refresh(self):
+        self.central_widget.setParent(None)
+
     def add_menu(self):
         menu = self.menuBar()
 
         file_menu = menu.addMenu('File')
-        exit_option = QT.QAction('Exit', self)
+        exit_option = QAction('Exit', self)
         exit_option.setShortcut('Ctrl+Q')
         exit_option.setStatusTip('Exit Program')
         exit_option.triggered.connect(self.close)
         file_menu.addAction(exit_option)
 
         display_menu = menu.addMenu('Display')
-        add_option = QT.QAction('Open Scoreboard Display', self)
+        add_option = QAction('Open Scoreboard Display', self)
         add_option.setShortcut('Ctrl+D')
         add_option.setStatusTip('Open Display in new window')
         add_option.triggered.connect(self.open_display)
@@ -43,3 +66,8 @@ class UI(QMainWindow):
 
     def close(self):
         super().close()
+
+class Player_Widget(QWidget):
+    def __init__(self, player_num):
+        super().__init__()
+        self.player_num = player_num
