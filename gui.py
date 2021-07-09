@@ -19,10 +19,21 @@ class UI(QMainWindow):
         self.setWindowTitle(self.title)
         self.setGeometry(self.xpos, self.ypos, self.width, self.height)
         self.add_menu()
+        self.refresh()
 
+    def add_player(self):
+        player_num = len(self.players) + 1
+        self.players[str(player_num)] = Player_Widget(player_num)
+        self.refresh()
+
+    def refresh(self):
+        if self.players:
+            self.central_widget.setParent(None)
         self.central_widget = QWidget()
         self.central_layout = QHBoxLayout()
-
+        if self.players:
+            for player in self.players:
+                self.central_layout.addWidget(self.players[player])
         self.add_player_button = QPushButton(self)
         self.add_player_button.setText("Add Player")
         self.add_player_button.clicked.connect(self.add_player)
@@ -30,17 +41,8 @@ class UI(QMainWindow):
             QSizePolicy.Preferred, QSizePolicy.Expanding
         )
         self.central_layout.addWidget(self.add_player_button)
-
         self.central_widget.setLayout(self.central_layout)
         self.setCentralWidget(self.central_widget)
-
-    def add_player(self):
-        player_num = len(self.players)
-        self.players[str(player_num)].append(Player_Widget(player_num))
-        self.refresh()
-
-    def refresh(self):
-        self.central_widget.setParent(None)
 
     def add_menu(self):
         menu = self.menuBar()
