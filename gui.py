@@ -11,6 +11,7 @@ class UI(QMainWindow):
         self.height = WINDOW_HEIGHT
         self.xpos = WINDOW_XPOS
         self.ypos = WINDOW_YPOS
+        self.players = {}
         self.init_UI()
 
     def init_UI(self):
