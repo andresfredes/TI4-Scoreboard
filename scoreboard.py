@@ -1,9 +1,10 @@
 import sys
 
-from app import App
+from gui import UI
 from PyQt5.QtWidgets import QApplication
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = App()
+    win = UI()
+    win.show()
     sys.exit(app.exec_())
