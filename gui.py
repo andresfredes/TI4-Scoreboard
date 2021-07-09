@@ -28,12 +28,14 @@ class UI(QMainWindow):
 
     def refresh(self):
         if self.players:
+            tmp_players = self.players.copy() #------------------------------------
             self.central_widget.setParent(None)
+            self.players = tmp_players.copy() #-------------------------------------
         self.central_widget = QWidget()
         self.central_layout = QHBoxLayout()
         if self.players:
             for player in self.players:
-                self.central_layout.addWidget(self.players[player])
+                self.central_layout.addWidget(self.players[player]) #----------------
         self.add_player_button = QPushButton(self)
         self.add_player_button.setText("Add Player")
         self.add_player_button.clicked.connect(self.add_player)
