@@ -13,3 +13,6 @@ class Display_Window(QMainWindow):
     def init_UI(self):
         self.setWindowTitle(self.title)
         self.setGeometry(0, 0, self.width, self.height)
+
+    def update(self, players):
+        pass
