@@ -8,7 +8,7 @@ from config import FACTIONS, COLOURS, STRAT_CARDS
 class Font(QFont):
     def __init__(self):
         super().__init__()
-        self.setPointSize(25)
+        self.setPointSize(20)
 
 class Label_Font(QFont):
     def __init__(self):
@@ -45,6 +45,12 @@ class Label(QLabel):
         self.setAlignment(Qt.AlignCenter)
         self.setFont(Label_Font())
 
+class TextBox(QLineEdit):
+    def __init__(self):
+        super().__init__()
+        self.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
+        self.setFont(Font())
+
 class Player_Widget(QFrame):
     def __init__(self, player, display):
         super().__init__()
@@ -62,7 +68,7 @@ class Player_Widget(QFrame):
         vbox.addWidget(player_label)
 
         hbox1 = QHBoxLayout()
-        self.player_name = QLineEdit()
+        self.player_name = TextBox()
         hbox1.addWidget(self.player_name)
         set_button = Button("Set Name", self.set_name)
         hbox1.addWidget(set_button)
