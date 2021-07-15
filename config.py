@@ -1,3 +1,8 @@
+RESET = 0
+SAFETY_LIMIT = 10
+CARD_MIN = 1
+CARD_MAX = 8
+
 WINDOW = {
     "XPOS":200,
     "YPOS":200,
@@ -33,16 +38,23 @@ FACTIONS = [
 ]
 
 COLOURS = {
-    "":(255,255,255),
-    "Blue":(0,0,255),
-    "Red":(255,0,0),
-    "Black":(0,0,0),
-    "Yellow":(255,255,0),
-    "Green":(0,255,0),
-    "Purple":(255,0,255),
-    "Orange":(255,150,0),
-    "Pink":(255,150,150)
+    "":"white",
+    "Blue":"blue",
+    "Red":"red",
+    "Black":"black",
+    "Yellow":"yellow",
+    "Green":"green",
+    "Purple":"purple",
+    "Orange":"orange",
+    "Pink":"pink"
 }
+
+LIGHT_COLOURS = [
+    "",
+    "Yellow",
+    "Orange",
+    "Pink"
+]
 
 STRAT_CARDS = {
     0:"",
