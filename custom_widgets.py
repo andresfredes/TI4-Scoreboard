@@ -232,7 +232,6 @@ class Display_Widget(QFrame):
         name = Label(self.player.name)
         vbox.addWidget(name)
 
-        logo_widget = QWidget()
         logo = QPixmap()
         folder = "icons/"
         if self.player.faction:
@@ -240,11 +239,10 @@ class Display_Widget(QFrame):
             logo.load(folder + self.player.faction + suffix)
         else:
             logo.load(folder + "TI.jpeg")
-        logo_label = QLabel(logo_widget)
+        logo_label = QLabel()
         logo_label.setPixmap(logo)
-        logo_label.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
-        logo_label.setScaledContents(True)
-        vbox.addWidget(logo_widget)
+        logo_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        vbox.addWidget(logo_label, alignment=Qt.AlignCenter)
 
         strat_style = None
         if self.player.card_used:

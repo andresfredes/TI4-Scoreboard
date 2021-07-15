@@ -90,8 +90,6 @@ class UI(QMainWindow):
                 self.display.update()
                 break
             x = self.change_turn(modifier)
-            print("Looping..." + str(turn_counter))
-
 
     def change_turn(self, modifier):
         for player in self.players:
