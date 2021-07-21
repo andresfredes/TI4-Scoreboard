@@ -17,7 +17,7 @@
 
 from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QSizePolicy
 
-from config import WINDOW, RESET, SAFETY_LIMIT, CARD_MIN, CARD_MAX
+from config import WINDOW, SAFETY_LIMIT, CARD_MIN, CARD_MAX
 from display import Display_Window
 from player import Player
 from custom_widgets import *
@@ -70,7 +70,7 @@ class UI(QMainWindow):
             )
             self.central_layout.addWidget(self.add_player_button)
         else:
-            self.current_turn = 0
+            self.current_turn = 8
             vbox = QVBoxLayout()
             next_turn = Button("Next", self.next_turn)
             next_turn.setSizePolicy(
@@ -127,7 +127,8 @@ class UI(QMainWindow):
             self.current_turn = CARD_MIN
         player_with_card = 0
         for player in self.players:
-            if self.current_turn == player.strat_card:
+            if (self.current_turn == player.strat_card and not player.is_zero) or (
+                self.current_turn == 0 and player.is_zero):
                 if not player.passed:
                     player.is_turn = True
                     player_with_card = player.num

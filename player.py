@@ -27,3 +27,4 @@ class Player(object):
         self.passed = False
         self.card_used = False
         self.is_turn = False
+        self.is_zero = False

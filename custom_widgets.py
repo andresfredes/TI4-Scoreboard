@@ -16,10 +16,9 @@
 #     along with TI4-Scoreboard.  If not, see <https://www.gnu.org/licenses/>.
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont, QColor, QPixmap, QImage, QPalette, QBrush
+from PyQt5.QtGui import QFont, QPixmap, QIcon
 from PyQt5.QtWidgets import (QAction, QPushButton, QComboBox, QVBoxLayout,
-    QLabel, QHBoxLayout, QFrame, QLineEdit, QSizePolicy, QWidget,
-    QGraphicsDropShadowEffect)
+    QLabel, QHBoxLayout, QFrame, QLineEdit, QSizePolicy)
 
 from config import FACTIONS, COLOURS, LIGHT_COLOURS, STRAT_CARDS
 
@@ -70,6 +69,28 @@ class TextBox(QLineEdit):
         self.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
         self.setFont(Font())
 
+class Zero_Token(QPushButton):
+    def __init__(self,  player):
+        super().__init__()
+        self.player = player
+        self.setText("Naalu Zero Token")
+        self.clicked.connect(self.changed)
+        self.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        self.setFont(Font())
+        if self.player.is_zero:
+            self.setIcon(QIcon('icons/checkmark.png'))
+        
+    def changed(self):
+        if self.player.is_zero:
+            self.player.is_zero = False
+            self.setIcon(QIcon())
+            btn_style = 'background-color: white'
+        else:
+            self.player.is_zero = True
+            self.setIcon(QIcon('icons/checkmark.png'))
+            btn_style = 'background-color: lightgray'
+        self.setStyleSheet(btn_style)
+
 class Player_Widget(QFrame):
     def __init__(self, player, display):
         super().__init__()
@@ -117,6 +138,8 @@ class Player_Widget(QFrame):
                 if value == self.player.strat_card:
                     self.strat_card.setCurrentText(STRAT_CARDS[key])
         vbox.addWidget(self.strat_card)
+
+        vbox.addWidget(Zero_Token(self.player))
 
         hbox2 = QHBoxLayout()
         card_btn_label = Label("Card", size=15)

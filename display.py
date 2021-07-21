@@ -47,7 +47,7 @@ class Display_Window(QMainWindow):
         self.central_layout = QHBoxLayout()
         self.players = sorted(
             self.control_window.get_players(),
-            key=lambda x: x.strat_card
+            key=lambda x: (not x.is_zero, x.strat_card)
         )
         for player in self.players:
             player.widget = Display_Widget(player)
